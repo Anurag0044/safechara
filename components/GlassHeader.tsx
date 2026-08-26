@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { DrawerParamList } from '../types';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface GlassHeaderProps {
   title: string;
@@ -13,12 +14,13 @@ interface GlassHeaderProps {
 }
 
 export const GlassHeader = ({ title, navigation, rightIcon }: GlassHeaderProps) => {
+  const insets = useSafeAreaInsets();
+
   return (
     <View style={styles.container}>
       <BlurView intensity={30} tint="dark" style={styles.blurContainer}>
-        <SafeAreaView>
-          <View style={styles.headerContent}>
-            <TouchableOpacity
+        <View style={[styles.headerContent, { paddingTop: Math.max(insets.top, 12) }]}>
+          <TouchableOpacity
               onPress={() => navigation.toggleDrawer()}
               style={styles.iconButton}
             >
@@ -31,7 +33,6 @@ export const GlassHeader = ({ title, navigation, rightIcon }: GlassHeaderProps) 
               {rightIcon || <View style={{ width: 24 }} />}
             </View>
           </View>
-        </SafeAreaView>
       </BlurView>
     </View>
   );
