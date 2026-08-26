@@ -1,0 +1,12 @@
+
+# Windows PowerShell example:
+curl.exe -X POST http://127.0.0.1:5000/api/analyze `
+  -F "image=@feed.jpg" `
+  -F "animal=Cow" `
+  -F "condition=Normal"
+
+# Linux/macOS:
+curl -X POST http://127.0.0.1:5000/api/analyze \
+  -F "image=@feed.jpg" \
+  -F "animal=Cow" \
+  -F "condition=Normal"
