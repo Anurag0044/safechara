@@ -39,8 +39,8 @@ export const ResultsScreen = ({ route, navigation }: any) => {
         advisoryText: { en: advisoryText, hi: advisoryText },
       });
       navigation.navigate('DrawerNavigator');
-    } catch {
-      Alert.alert('Save failed', 'Could not save this test report. Please check your Firebase and Cloudinary setup.');
+    } catch (err: any) {
+      Alert.alert('Save failed', err?.message || 'Could not save this test report. Please check your Firebase and Cloudinary setup.');
     } finally {
       setSaving(false);
     }

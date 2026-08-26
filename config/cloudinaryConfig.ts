@@ -4,6 +4,8 @@ export const cloudinaryConfig = {
   apiBaseUrl: process.env.EXPO_PUBLIC_CLOUDINARY_API_BASE_URL || 'https://api.cloudinary.com/v1_1',
 };
 
+import * as FileSystem from 'expo-file-system';
+
 export const uploadImageToCloudinary = async (imageUri: string): Promise<string> => {
   const { cloudName, uploadPreset, apiBaseUrl } = cloudinaryConfig;
 
@@ -11,24 +13,31 @@ export const uploadImageToCloudinary = async (imageUri: string): Promise<string>
     throw new Error('Cloudinary environment variables are missing.');
   }
 
-  const formData = new FormData();
-  formData.append('file', {
-    uri: imageUri,
-    type: 'image/jpeg',
-    name: `safechara-${Date.now()}.jpg`,
-  } as any);
-  formData.append('upload_preset', uploadPreset);
+  const uploadUrl = `${apiBaseUrl}/${cloudName}/image/upload`;
 
-  const response = await fetch(`${apiBaseUrl}/${cloudName}/image/upload`, {
-    method: 'POST',
-    body: formData,
-  });
+  try {
+    const uploadResult = await FileSystem.uploadAsync(uploadUrl, imageUri, {
+      httpMethod: 'POST',
+      uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+      fieldName: 'file',
+      parameters: {
+        upload_preset: uploadPreset,
+      },
+    });
 
-  const payload = await response.json();
+    if (uploadResult.status !== 200) {
+      throw new Error(`Upload failed with status ${uploadResult.status}`);
+    }
 
-  if (!response.ok || !payload.secure_url) {
-    throw new Error(payload.error?.message || 'Cloudinary upload failed.');
+    const payload = JSON.parse(uploadResult.body);
+
+    if (!payload.secure_url) {
+      throw new Error(payload.error?.message || 'Cloudinary upload failed.');
+    }
+
+    return payload.secure_url;
+  } catch (error: any) {
+    console.error('FileSystem uploadAsync error:', error);
+    throw new Error(error.message || 'Network request failed. Please check your internet connection.');
   }
-
-  return payload.secure_url;
 };

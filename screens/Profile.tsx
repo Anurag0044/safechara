@@ -35,8 +35,11 @@ export const ProfileScreen = ({ navigation }: any) => {
       setUploading(true);
       try {
         await uploadProfilePicture(result.assets[0].uri);
-      } catch {
-        Alert.alert(i18n.t('auth_error_generic'), i18n.t('profile_image_update_failed'));
+      } catch (err: any) {
+        Alert.alert(
+          i18n.t('auth_error_generic') || 'Error', 
+          err?.message || i18n.t('profile_image_update_failed') || 'Could not update profile picture.'
+        );
       } finally {
         setUploading(false);
       }
