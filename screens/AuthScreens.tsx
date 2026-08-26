@@ -273,8 +273,9 @@ export const ProfilePictureSetupScreen = () => {
     try {
       await uploadProfilePicture(imageUri);
       finishProfileSetup();
-    } catch {
-      setError('profile_upload_failed');
+    } catch (err: any) {
+      console.error('Cloudinary Upload Error:', err);
+      setError(err?.message || 'Profile picture upload failed.');
     } finally {
       setUploading(false);
     }
