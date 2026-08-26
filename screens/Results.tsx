@@ -13,8 +13,8 @@ export const ResultsScreen = ({ route, navigation }: any) => {
   const [saving, setSaving] = useState(false);
 
   const getOverallStatus = () => {
-    if (result.mouldDetected || result.ureaFlag || result.sandFlag) return 'alert';
-    if (result.proteinPct < 12 || result.moisturePct > 55) return 'caution';
+    if (result.mouldDetected || result.ureaFlag || result.sandDetected) return 'alert';
+    if (parseFloat(result.proteinPct) < 12 || parseFloat(result.moisturePct) > 55) return 'caution';
     return 'good';
   };
 

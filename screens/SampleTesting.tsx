@@ -34,7 +34,7 @@ export const SampleTestingScreen = ({ route, navigation }: any) => {
       setTimeout(() => {
         setStep('analyzing');
         
-        analyzeSample(sampleType, {}).then((result) => {
+        analyzeSample(sampleType, { imageUri, cattleType, cattleCondition }).then((result) => {
           setStep('done');
           setTimeout(() => {
             navigation.replace('TestResults', { result, sampleType, cattleType, cattleCondition, imageUri });
