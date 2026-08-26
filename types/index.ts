@@ -18,6 +18,9 @@ export interface TestRecord {
 export type RootStackParamList = {
   Splash: undefined;
   Onboarding: undefined;
+  Login: undefined;
+  Register: undefined;
+  ProfilePictureSetup: undefined;
   DrawerNavigator: undefined;
   TestResults: {
     result?: unknown;

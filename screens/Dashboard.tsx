@@ -8,6 +8,8 @@ import { StatusBadge } from '../components/StatusBadge';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 import { scale } from '../utils/responsive';
+import { useAuth } from '../context/AuthContext';
+import i18n from '../utils/i18n';
 
 const recentTests = [
   { id: '1', type: 'Feed', status: 'good', date: '2 hrs ago', score: 92 },
@@ -16,13 +18,16 @@ const recentTests = [
 ];
 
 export const DashboardScreen = ({ navigation }: any) => {
+  const { userProfile } = useAuth();
+  const username = userProfile?.username || 'Farmer';
+
   return (
     <GradientMeshBackground>
       <GlassHeader title="Dashboard" navigation={navigation} />
       
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.greeting}>
-          <Text style={styles.greetingText}>Hello, Farmer</Text>
+          <Text style={styles.greetingText}>{i18n.t('hello_user', { username })}</Text>
           <Text style={styles.subGreeting}>Ready to test your batches?</Text>
         </View>
 

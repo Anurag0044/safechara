@@ -9,6 +9,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { SplashScreen } from './screens/Splash';
+import { LoginScreen, ProfilePictureSetupScreen, RegisterScreen } from './screens/AuthScreens';
 import { OnboardingScreen } from './screens/Onboarding';
 import { DashboardScreen } from './screens/Dashboard';
 import { CattleConditionSelectionScreen, CattleTypeSelectionScreen, FeedSampleUploadScreen } from './screens/FeedTestProfileFlow';
@@ -19,6 +20,7 @@ import { AdvisoryScreen } from './screens/Advisory';
 import { ProfileScreen } from './screens/Profile';
 
 import { GlassDrawerContent } from './components/GlassDrawerContent';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { colors } from './theme/colors';
 
 const Stack = createStackNavigator();
@@ -75,6 +77,32 @@ const DrawerNavigator = () => {
   );
 };
 
+const RootNavigator = () => {
+  const { user, loading, pendingProfileSetup } = useAuth();
+
+  if (loading) {
+    return <SplashScreen />;
+  }
+
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: colors.background } }}>
+      {!user ? (
+        <>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+        </>
+      ) : pendingProfileSetup ? (
+        <Stack.Screen name="ProfilePictureSetup" component={ProfilePictureSetupScreen} />
+      ) : (
+        <>
+          <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+          <Stack.Screen name="TestResults" component={ResultsScreen} />
+        </>
+      )}
+    </Stack.Navigator>
+  );
+};
+
 export default function App() {
   let [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -96,12 +124,9 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: colors.background } }}>
-            <Stack.Screen name="Splash" component={SplashScreen} />
-            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-            <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
-            <Stack.Screen name="TestResults" component={ResultsScreen} />
-          </Stack.Navigator>
+          <AuthProvider>
+            <RootNavigator />
+          </AuthProvider>
         </NavigationContainer>
       </SafeAreaProvider>
     </GestureHandlerRootView>

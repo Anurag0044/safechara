@@ -1,14 +1,16 @@
-import React from 'react';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { GradientMeshBackground } from '../components/GradientMeshBackground';
 import { GlassCard } from '../components/GlassCard';
 import { GlassButton } from '../components/GlassButton';
 import { StatusBadge } from '../components/StatusBadge';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
+import { saveTestRecord } from '../services/testRecordService';
 
 export const ResultsScreen = ({ route, navigation }: any) => {
-  const { result, sampleType } = route.params || {};
+  const { result, sampleType, cattleType, cattleCondition, imageUri } = route.params || {};
+  const [saving, setSaving] = useState(false);
 
   const getOverallStatus = () => {
     if (result.mouldDetected || result.ureaFlag || result.sandFlag) return 'alert';
@@ -18,6 +20,31 @@ export const ResultsScreen = ({ route, navigation }: any) => {
 
   const status = getOverallStatus();
   const statusLabel = status === 'good' ? 'Excellent' : status === 'caution' ? 'Fair' : 'Poor Quality';
+  const advisoryText = status === 'alert'
+    ? 'Warning: Contaminants detected. Do not feed this batch. Check for mould or adulteration.'
+    : status === 'caution'
+      ? 'Nutritional value is below optimal. Consider supplementing protein.'
+      : 'Batch is of high quality. Safe to feed.';
+
+  const handleSave = async () => {
+    if (saving) return;
+    setSaving(true);
+    try {
+      await saveTestRecord({
+        sampleType,
+        cattleType,
+        cattleCondition,
+        imageUri,
+        result,
+        advisoryText: { en: advisoryText, hi: advisoryText },
+      });
+      navigation.navigate('DrawerNavigator');
+    } catch {
+      Alert.alert('Save failed', 'Could not save this test report. Please check your Firebase and Cloudinary setup.');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <GradientMeshBackground>
@@ -48,20 +75,15 @@ export const ResultsScreen = ({ route, navigation }: any) => {
             <Feather name="alert-circle" size={20} color={colors.statusCaution} />
             <Text style={styles.advisoryTitle}>Advisory</Text>
           </View>
-          <Text style={styles.advisoryText}>
-            {status === 'alert' 
-              ? 'Warning: Contaminants detected. Do not feed this batch. Check for mould or adulteration.' 
-              : status === 'caution' 
-              ? 'Nutritional value is below optimal. Consider supplementing protein.' 
-              : 'Batch is of high quality. Safe to feed.'}
-          </Text>
+          <Text style={styles.advisoryText}>{advisoryText}</Text>
         </GlassCard>
 
         <View style={styles.actions}>
           <GlassButton 
-            title="Save & Sync" 
-            icon={<Feather name="cloud" size={20} color={colors.onSurface} />}
-            onPress={() => navigation.navigate('DrawerNavigator')} 
+            title={saving ? 'Saving...' : 'Save & Sync'} 
+            icon={saving ? <ActivityIndicator size="small" color={colors.primaryFixed} /> : <Feather name="cloud" size={20} color={colors.onSurface} />}
+            disabled={saving}
+            onPress={handleSave} 
             style={styles.actionBtn} 
           />
           <GlassButton 

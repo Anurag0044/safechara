@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
+import { useAuth } from '../context/AuthContext';
+import i18n from '../utils/i18n';
 
 const menuItems = [
   { name: 'Dashboard', route: 'Dashboard', icon: 'home' },
@@ -19,14 +21,22 @@ const menuItems = [
 
 export const GlassDrawerContent = (props: any) => {
   const { state, navigation } = props;
+  const { userProfile, logout } = useAuth();
 
   return (
     <BlurView intensity={50} tint="dark" style={styles.container}>
       <View style={styles.borderOverlay} />
       <DrawerContentScrollView {...props} style={styles.scroll}>
         <View style={styles.header}>
-          <Feather name="shield" size={32} color={colors.primary} />
-          <Text style={styles.headerTitle}>SafeChara</Text>
+          {userProfile?.profileImageUrl ? (
+            <Image source={{ uri: userProfile.profileImageUrl }} style={styles.headerAvatar} />
+          ) : (
+            <Feather name="shield" size={32} color={colors.primary} />
+          )}
+          <View style={styles.headerTextGroup}>
+            <Text style={styles.headerTitle}>SafeChara</Text>
+            {!!userProfile?.username && <Text style={styles.headerUser}>{userProfile.username}</Text>}
+          </View>
         </View>
 
         <View style={styles.menuContainer}>
@@ -54,9 +64,9 @@ export const GlassDrawerContent = (props: any) => {
         </View>
       </DrawerContentScrollView>
       
-      <TouchableOpacity style={styles.logoutButton}>
+      <TouchableOpacity style={styles.logoutButton} onPress={logout}>
         <Feather name="log-out" size={20} color={colors.error} style={styles.menuIcon} />
-        <Text style={styles.logoutText}>Logout</Text>
+        <Text style={styles.logoutText}>{i18n.t('logout')}</Text>
       </TouchableOpacity>
     </BlurView>
   );
@@ -87,7 +97,20 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter_700Bold',
     fontSize: 24,
     color: colors.onSurface,
+  },
+  headerTextGroup: {
     marginLeft: 12,
+  },
+  headerUser: {
+    fontFamily: 'Inter_500Medium',
+    fontSize: 13,
+    color: colors.onSurfaceVariant,
+    marginTop: 2,
+  },
+  headerAvatar: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
   },
   menuContainer: {
     paddingHorizontal: 16,

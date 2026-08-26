@@ -14,9 +14,11 @@ export const SplashScreen = ({ navigation }: any) => {
     opacity.value = withTiming(1, { duration: 1000 });
     scale.value = withTiming(1, { duration: 1000 });
     
-    setTimeout(() => {
-      navigation.replace('Onboarding');
-    }, 2500);
+    if (navigation?.replace) {
+      setTimeout(() => {
+        navigation.replace('Onboarding');
+      }, 2500);
+    }
   }, []);
 
   const animatedStyle = useAnimatedStyle(() => {
