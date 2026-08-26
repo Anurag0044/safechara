@@ -9,6 +9,7 @@ import { colors } from '../theme/colors';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BlurView } from 'expo-blur';
 import QRCode from 'react-native-qrcode-svg';
+import { scale } from '../utils/responsive';
 
 const historyData = [
   { id: '1', type: 'Feed', status: 'good', date: '2023-10-25 10:30 AM', score: 92, qr: 'safechara://record/1' },
@@ -78,7 +79,7 @@ export const HistoryScreen = ({ navigation }: any) => {
             {selectedRecord && (
               <QRCode
                 value={selectedRecord.qr}
-                size={200}
+                size={scale(200)}
                 color={colors.background}
                 backgroundColor={colors.onSurface}
               />

@@ -4,6 +4,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withTiming, withDelay } fro
 import { GradientMeshBackground } from '../components/GradientMeshBackground';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
+import { scale as responsiveScale } from '../utils/responsive';
 
 export const SplashScreen = ({ navigation }: any) => {
   const opacity = useSharedValue(0);
@@ -32,7 +33,7 @@ export const SplashScreen = ({ navigation }: any) => {
           <View style={styles.logoContainer}>
             <Image 
               source={require('../assets/logo.png')} 
-              style={{ width: 120, height: 120, resizeMode: 'contain' }} 
+              style={{ width: responsiveScale(120), height: responsiveScale(120), resizeMode: 'contain' }} 
             />
           </View>
           <Text style={styles.title}>SafeChara</Text>

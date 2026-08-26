@@ -7,6 +7,7 @@ import { GlassHeader } from '../components/GlassHeader';
 import { StatusBadge } from '../components/StatusBadge';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
+import { scale } from '../utils/responsive';
 
 const recentTests = [
   { id: '1', type: 'Feed', status: 'good', date: '2 hrs ago', score: 92 },
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
   testCard: {
-    width: 200,
+    width: scale(200),
     marginRight: 16,
   },
   testCardHeader: {

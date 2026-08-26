@@ -8,6 +8,7 @@ import { GlassButton } from '../components/GlassButton';
 import { colors } from '../theme/colors';
 import { bleManager } from '../services/bleService';
 import { analyzeSample } from '../services/aiService';
+import { scale } from '../utils/responsive';
 
 export const SampleTestingScreen = ({ route, navigation }: any) => {
   const { sampleType = 'Feed' } = route.params || {};
@@ -99,28 +100,28 @@ const styles = StyleSheet.create({
   radarContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 300,
-    height: 300,
+    width: scale(300),
+    height: scale(300),
   },
   radarRing: {
     position: 'absolute',
-    width: 150,
-    height: 150,
-    borderRadius: 75,
+    width: scale(150),
+    height: scale(150),
+    borderRadius: scale(75),
     borderWidth: 2,
     borderColor: colors.primary,
     backgroundColor: 'rgba(104, 219, 169, 0.1)',
   },
   radarRing2: {
-    width: 250,
-    height: 250,
-    borderRadius: 125,
+    width: scale(250),
+    height: scale(250),
+    borderRadius: scale(125),
     opacity: 0.5,
   },
   centerCircle: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+    width: scale(120),
+    height: scale(120),
+    borderRadius: scale(60),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(104, 219, 169, 0.2)',

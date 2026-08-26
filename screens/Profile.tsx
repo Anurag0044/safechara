@@ -6,6 +6,7 @@ import { GlassHeader } from '../components/GlassHeader';
 import { GlassButton } from '../components/GlassButton';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
+import { scale } from '../utils/responsive';
 
 export const ProfileScreen = ({ navigation }: any) => {
   return (
@@ -68,9 +69,9 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   avatarCard: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: scale(100),
+    height: scale(100),
+    borderRadius: scale(50),
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 16,
