@@ -1,0 +1,42 @@
+name: Build APK
+
+# Trigger on push to main branch or manual dispatch
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Setup EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build APK
+        run: eas build --platform android --profile preview --non-interactive
+
+      - name: Get APK download URL
+        id: apk_url
+        run: |
+          APK_URL=$(eas build:list --platform android --status finished --limit 1 --json --non-interactive | jq -r '.[0].artifacts.buildUrl')
+          echo "url=$APK_URL" >> $GITHUB_OUTPUT
+          echo "### 📱 APK Download" >> $GITHUB_STEP_SUMMARY
+          echo "Download the APK: [$APK_URL]($APK_URL)" >> $GITHUB_STEP_SUMMARY
