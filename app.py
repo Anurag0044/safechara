@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import cv2
 import numpy as np
+import requests as http_requests
 
 app = Flask(__name__)
 CORS(app)
@@ -254,18 +255,40 @@ def health():
 @app.post("/api/analyze")
 def analyze():
     try:
-        if "image" not in request.files:
+        image_bytes = None
+        animal = "Cow"
+        condition = "Normal"
+
+        # --- Option 1: JSON body with a Cloudinary image_url ---
+        if request.is_json:
+            data = request.get_json()
+            image_url = data.get("image_url")
+            if not image_url:
+                return jsonify({
+                    "success": False,
+                    "error": "JSON body must contain 'image_url'."
+                }), 400
+
+            animal = data.get("animal", "Cow")
+            condition = data.get("condition", "Normal")
+
+            # Download the image from Cloudinary
+            img_response = http_requests.get(image_url, timeout=15)
+            img_response.raise_for_status()
+            image_bytes = img_response.content
+
+        # --- Option 2: Multipart file upload (original / fallback) ---
+        elif "image" in request.files:
+            image_file = request.files["image"]
+            animal = request.form.get("animal", "Cow")
+            condition = request.form.get("condition", "Normal")
+            image_bytes = image_file.read()
+
+        else:
             return jsonify({
                 "success": False,
-                "error": "No image supplied. Use multipart field 'image'."
+                "error": "Send JSON with 'image_url' or multipart with 'image' file."
             }), 400
-
-        image_file = request.files["image"]
-
-        animal = request.form.get("animal", "Cow")
-        condition = request.form.get("condition", "Normal")
-
-        image_bytes = image_file.read()
         img = preprocess(image_bytes)
 
         features = calculate_visual_features(img)
