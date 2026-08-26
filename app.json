@@ -23,6 +23,22 @@
     },
     "plugins": [
       "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow SafeChara to access your camera so you can photograph feed samples.",
+          "microphonePermission": false,
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow SafeChara to access your photos so you can upload feed sample images.",
+          "cameraPermission": "Allow SafeChara to access your camera so you can photograph feed samples.",
+          "microphonePermission": false
+        }
+      ],
       "expo-localization",
       "react-native-ble-plx",
       "react-native-fast-tflite"

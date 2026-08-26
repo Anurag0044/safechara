@@ -11,7 +11,7 @@ import { analyzeSample } from '../services/aiService';
 import { scale } from '../utils/responsive';
 
 export const SampleTestingScreen = ({ route, navigation }: any) => {
-  const { sampleType = 'Feed' } = route.params || {};
+  const { sampleType = 'Feed', cattleType, cattleCondition, imageUri } = route.params || {};
   
   const [step, setStep] = useState<'scanning' | 'connected' | 'analyzing' | 'done'>('scanning');
   
@@ -37,7 +37,7 @@ export const SampleTestingScreen = ({ route, navigation }: any) => {
         analyzeSample(sampleType, {}).then((result) => {
           setStep('done');
           setTimeout(() => {
-            navigation.replace('TestResults', { result, sampleType });
+            navigation.replace('TestResults', { result, sampleType, cattleType, cattleCondition, imageUri });
           }, 1000);
         });
       }, 1500);
@@ -58,6 +58,26 @@ export const SampleTestingScreen = ({ route, navigation }: any) => {
       <GlassHeader title={`Test ${sampleType}`} navigation={navigation} />
       
       <View style={styles.container}>
+        {(cattleType || cattleCondition || imageUri) && (
+          <View style={styles.contextRow}>
+            {cattleType && (
+              <GlassCard style={styles.contextChip}>
+                <Text style={styles.contextText}>{cattleType === 'cow' ? 'Cow' : 'Buffalo'}</Text>
+              </GlassCard>
+            )}
+            {cattleCondition && (
+              <GlassCard style={styles.contextChip}>
+                <Text style={styles.contextText}>{cattleCondition}</Text>
+              </GlassCard>
+            )}
+            {imageUri && (
+              <GlassCard style={styles.contextChip}>
+                <Text style={styles.contextText}>Image ✓</Text>
+              </GlassCard>
+            )}
+          </View>
+        )}
+
         <View style={styles.radarContainer}>
           <Animated.View style={[styles.radarRing, pulseStyle]} />
           <Animated.View style={[styles.radarRing, styles.radarRing2, pulseStyle]} />
@@ -96,6 +116,27 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  contextRow: {
+    position: 'absolute',
+    top: 116,
+    left: 16,
+    right: 16,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  contextChip: {
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 999,
+  },
+  contextText: {
+    fontFamily: 'Inter_600SemiBold',
+    fontSize: 12,
+    color: colors.primaryFixed,
+    textTransform: 'capitalize',
   },
   radarContainer: {
     alignItems: 'center',

@@ -7,7 +7,7 @@ import { colors } from '../theme/colors';
 
 const menuItems = [
   { name: 'Dashboard', route: 'Dashboard', icon: 'home' },
-  { name: 'Test Feed', route: 'TestFeed', icon: 'activity' },
+  { name: 'Test Feed', route: 'CattleTypeSelection', icon: 'activity' },
   { name: 'Test Silage', route: 'TestSilage', icon: 'droplet' },
   { name: 'History/Traceability', route: 'History', icon: 'clock' },
   { name: 'Advisory', route: 'Advisory', icon: 'book-open' },

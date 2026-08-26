@@ -11,6 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SplashScreen } from './screens/Splash';
 import { OnboardingScreen } from './screens/Onboarding';
 import { DashboardScreen } from './screens/Dashboard';
+import { CattleConditionSelectionScreen, CattleTypeSelectionScreen, FeedSampleUploadScreen } from './screens/FeedTestProfileFlow';
 import { SampleTestingScreen } from './screens/SampleTesting';
 import { ResultsScreen } from './screens/Results';
 import { HistoryScreen } from './screens/History';
@@ -36,6 +37,21 @@ const DrawerNavigator = () => {
       }}
     >
       <Drawer.Screen name="Dashboard" component={DashboardScreen} />
+      <Drawer.Screen 
+        name="CattleTypeSelection" 
+        component={CattleTypeSelectionScreen} 
+        options={{ title: 'Test Feed' }}
+      />
+      <Drawer.Screen 
+        name="CattleConditionSelection" 
+        component={CattleConditionSelectionScreen} 
+        options={{ title: 'Test Feed' }}
+      />
+      <Drawer.Screen 
+        name="FeedSampleUpload" 
+        component={FeedSampleUploadScreen} 
+        options={{ title: 'Test Feed' }}
+      />
       <Drawer.Screen 
         name="TestFeed" 
         component={SampleTestingScreen} 

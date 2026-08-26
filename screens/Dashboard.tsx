@@ -38,14 +38,14 @@ export const DashboardScreen = ({ navigation }: any) => {
           </View>
           <TouchableOpacity 
             style={styles.connectBtn}
-            onPress={() => navigation.navigate('TestFeed')} // Navigate to test feed for now
+            onPress={() => navigation.navigate('TestFeed')} // Connect flow unchanged for now
           >
             <Text style={styles.connectBtnText}>Connect</Text>
           </TouchableOpacity>
         </GlassCard>
 
         <View style={styles.actionGrid}>
-          <TouchableOpacity style={styles.actionItem} onPress={() => navigation.navigate('TestFeed')}>
+          <TouchableOpacity style={styles.actionItem} onPress={() => navigation.navigate('CattleTypeSelection')}>
             <GlassCard style={styles.actionCard}>
               <Feather name="activity" size={32} color={colors.primary} style={styles.actionIcon} />
               <Text style={styles.actionTitle}>Test Feed</Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, ViewStyle, TextStyle } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, ViewStyle, TextStyle } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { colors } from '../theme/colors';
 
@@ -10,14 +10,19 @@ interface GlassButtonProps {
   style?: ViewStyle;
   textStyle?: TextStyle;
   icon?: React.ReactNode;
+  disabled?: boolean;
 }
 
-export const GlassButton = ({ onPress, title, variant = 'primary', style, textStyle, icon }: GlassButtonProps) => {
+export const GlassButton = ({ onPress, title, variant = 'primary', style, textStyle, icon, disabled = false }: GlassButtonProps) => {
   const isPrimary = variant === 'primary';
-  const backgroundColor = isPrimary ? 'rgba(104, 219, 169, 0.2)' : colors.glassBackground;
+  const backgroundColor = disabled
+    ? 'rgba(255, 255, 255, 0.04)'
+    : isPrimary
+      ? 'rgba(104, 219, 169, 0.2)'
+      : colors.glassBackground;
   
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.7} style={[styles.touchable, style]}>
+    <TouchableOpacity disabled={disabled} onPress={onPress} activeOpacity={0.7} style={[styles.touchable, disabled && styles.disabled, style]}>
       <BlurView intensity={isPrimary ? 40 : 20} tint={isPrimary ? "default" : "dark"} style={[styles.button, { backgroundColor }]}>
         {/* Inner top highlight */}
         <View style={styles.highlight} />
@@ -30,12 +35,13 @@ export const GlassButton = ({ onPress, title, variant = 'primary', style, textSt
   );
 };
 
-import { View } from 'react-native';
-
 const styles = StyleSheet.create({
   touchable: {
     borderRadius: 9999,
     overflow: 'hidden',
+  },
+  disabled: {
+    opacity: 0.45,
   },
   button: {
     flexDirection: 'row',

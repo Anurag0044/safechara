@@ -19,13 +19,37 @@ export type RootStackParamList = {
   Splash: undefined;
   Onboarding: undefined;
   DrawerNavigator: undefined;
-  TestResults: { testId: string };
+  TestResults: {
+    result?: unknown;
+    sampleType?: 'Feed' | 'Silage';
+    cattleType?: 'cow' | 'buffalo';
+    cattleCondition?: 'lactating' | 'pregnant' | 'normal';
+    imageUri?: string;
+  };
 };
 
 export type DrawerParamList = {
   Dashboard: undefined;
-  TestFeed: undefined;
-  TestSilage: undefined;
+  CattleTypeSelection: {
+    cattleType?: 'cow' | 'buffalo';
+    cattleCondition?: 'lactating' | 'pregnant' | 'normal';
+  } | undefined;
+  CattleConditionSelection: {
+    cattleType: 'cow' | 'buffalo';
+    cattleCondition?: 'lactating' | 'pregnant' | 'normal';
+  };
+  FeedSampleUpload: {
+    cattleType: 'cow' | 'buffalo';
+    cattleCondition: 'lactating' | 'pregnant' | 'normal';
+    imageUri?: string;
+  };
+  TestFeed: {
+    sampleType?: 'Feed';
+    cattleType?: 'cow' | 'buffalo';
+    cattleCondition?: 'lactating' | 'pregnant' | 'normal';
+    imageUri?: string;
+  } | undefined;
+  TestSilage: { sampleType?: 'Silage' } | undefined;
   History: undefined;
   Advisory: undefined;
   ConnectedDevices: undefined;
