@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { Feather } from '@expo/vector-icons';
+import { DrawerActions } from '@react-navigation/native';
 import { colors } from '../theme/colors';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { DrawerParamList } from '../types';
@@ -19,7 +20,13 @@ interface GlassHeaderProps {
 export const GlassHeader = ({ title, navigation, rightIcon, showBack = false, onBack, showMenuRight = false }: GlassHeaderProps) => {
   const insets = useSafeAreaInsets();
   const topInset = Math.max(insets.top, Platform.OS === 'android' ? 32 : 12);
-  const openMenu = () => navigation.getParent?.()?.openDrawer?.() || navigation.openDrawer?.() || navigation.toggleDrawer?.();
+  const openMenu = () => {
+    if (navigation.dispatch) {
+      navigation.dispatch(DrawerActions.openDrawer());
+    } else if (navigation.openDrawer) {
+      navigation.openDrawer();
+    }
+  };
 
   return (
     <View style={styles.container}>

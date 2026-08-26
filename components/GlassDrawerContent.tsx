@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 import { useAuth } from '../context/AuthContext';
@@ -22,6 +23,7 @@ const menuItems = [
 export const GlassDrawerContent = (props: any) => {
   const { state, navigation } = props;
   const { userProfile, logout } = useAuth();
+  const insets = useSafeAreaInsets();
 
   return (
     <BlurView intensity={50} tint="dark" style={styles.container}>
@@ -64,7 +66,10 @@ export const GlassDrawerContent = (props: any) => {
         </View>
       </DrawerContentScrollView>
       
-      <TouchableOpacity style={styles.logoutButton} onPress={logout}>
+      <TouchableOpacity 
+        style={[styles.logoutButton, { paddingBottom: Math.max(insets.bottom, 24) }]} 
+        onPress={logout}
+      >
         <Feather name="log-out" size={20} color={colors.error} style={styles.menuIcon} />
         <Text style={styles.logoutText}>{i18n.t('logout')}</Text>
       </TouchableOpacity>
