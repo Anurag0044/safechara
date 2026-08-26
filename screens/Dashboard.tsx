@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, View, Text, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GradientMeshBackground } from '../components/GradientMeshBackground';
 import { GlassCard } from '../components/GlassCard';
@@ -21,9 +21,25 @@ export const DashboardScreen = ({ navigation }: any) => {
   const { userProfile } = useAuth();
   const username = userProfile?.username || 'Farmer';
 
+  const profileAvatar = (
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Profile')}
+      activeOpacity={0.75}
+      style={styles.avatarBtn}
+    >
+      {userProfile?.profileImageUrl ? (
+        <Image source={{ uri: userProfile.profileImageUrl }} style={styles.avatarImage} />
+      ) : (
+        <View style={styles.avatarFallback}>
+          <Feather name="user" size={18} color={colors.primary} />
+        </View>
+      )}
+    </TouchableOpacity>
+  );
+
   return (
     <GradientMeshBackground>
-      <GlassHeader title="Dashboard" navigation={navigation} />
+      <GlassHeader title="Dashboard" navigation={navigation} rightIcon={profileAvatar} />
       
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.greeting}>
@@ -216,5 +232,26 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter_400Regular',
     fontSize: 12,
     color: colors.onSurfaceVariant,
+  },
+  avatarBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    overflow: 'hidden',
+    borderWidth: 1.5,
+    borderColor: colors.glassBorder,
+  },
+  avatarImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 18,
+  },
+  avatarFallback: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 18,
+    backgroundColor: 'rgba(104, 219, 169, 0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
