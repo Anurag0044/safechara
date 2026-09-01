@@ -79,5 +79,9 @@ The SafeChara ecosystem consists of three primary layers:
 *   `/theme`: Global design tokens (colors, typography, spacing).
 *   `/context`: React Context providers for global state management (Auth, BLE state).
 
+  <img width="294" height="381" alt="image" src="https://github.com/user-attachments/assets/f024048d-3ba3-4a76-bc37-70f8584547f5" /><img width="298" height="657" alt="image" src="https://github.com/user-attachments/assets/090ecaf6-d131-4f1f-89b8-c1ad121c876f" />
+
+
+
 ---
 *Built with ❤️ for Smart India Hackathon*
