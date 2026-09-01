@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SafeChara",
-    "slug": "SafeChara",
+    "slug": "spy0044",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +17,13 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.BLUETOOTH_CONNECT"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -43,6 +49,12 @@
       "expo-localization",
       "react-native-ble-plx",
       "react-native-fast-tflite"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "79e3a97e-1289-447d-9abd-afcd5e4e27fe"
+      }
+    },
+    "owner": "spy0044s-team"
   }
 }
