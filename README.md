@@ -35,7 +35,12 @@
 
 ### The User Journey & Impact
 
-<img width="312" height="600" alt="dashborad" src="https://github.com/user-attachments/assets/478c9a22-fc6e-4e1e-9f9a-eca5386a7e4f" />  <img width="312" height="600" alt="nav" src="https://github.com/user-attachments/assets/398465fb-49b4-440a-8cae-0623776aa70e" />   <img width="312" height="600" alt="an" src="https://github.com/user-attachments/assets/abfc1ff4-8068-4b2b-8be6-fd6999688bf2" />  <img width="312" height="600" alt="result" src="https://github.com/user-attachments/assets/dbdbd7dc-4bca-4284-91a3-7b67d5ff70bb" />
+<p align="center">
+  <img width="24%" alt="dashboard" src="https://github.com/user-attachments/assets/478c9a22-fc6e-4e1e-9f9a-eca5386a7e4f" />
+  <img width="24%" alt="nav" src="https://github.com/user-attachments/assets/398465fb-49b4-440a-8cae-0623776aa70e" />
+  <img width="24%" alt="an" src="https://github.com/user-attachments/assets/abfc1ff4-8068-4b2b-8be6-fd6999688bf2" />
+  <img width="24%" alt="result" src="https://github.com/user-attachments/assets/dbdbd7dc-4bca-4284-91a3-7b67d5ff70bb" />
+</p>
 
 
 
