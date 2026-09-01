@@ -35,6 +35,13 @@
 
 ### The User Journey & Impact
 
+<img width="720" height="1600" alt="dashborad" src="https://github.com/user-attachments/assets/478c9a22-fc6e-4e1e-9f9a-eca5386a7e4f" /> <img width="720" height="1600" alt="nav" src="https://github.com/user-attachments/assets/398465fb-49b4-440a-8cae-0623776aa70e" /> <img width="720" height="1600" alt="nav" src="https://github.com/user-attachments/assets/b562bd38-9115-4a7e-a036-fce1be601459" /> <img width="720" height="1600" alt="an" src="https://github.com/user-attachments/assets/abfc1ff4-8068-4b2b-8be6-fd6999688bf2" /> <img width="720" height="1600" alt="result" src="https://github.com/user-attachments/assets/dbdbd7dc-4bca-4284-91a3-7b67d5ff70bb" />
+
+
+
+
+
+
 SafeChara transforms the complex process of feed testing into a simple, accessible workflow for the dairy farmer:
 
 1.  **Secure Onboarding:** Farmers can easily register and maintain their profile securely.
@@ -79,7 +86,7 @@ The SafeChara ecosystem consists of three primary layers:
 *   `/theme`: Global design tokens (colors, typography, spacing).
 *   `/context`: React Context providers for global state management (Auth, BLE state).
 
-  <img width="294" height="381" alt="image" src="https://github.com/user-attachments/assets/f024048d-3ba3-4a76-bc37-70f8584547f5" /><img width="298" height="657" alt="image" src="https://github.com/user-attachments/assets/090ecaf6-d131-4f1f-89b8-c1ad121c876f" />
+
 
 
 
