@@ -10,7 +10,7 @@
 
 
 
-## 🏆 Smart India Hackathon (SIH) Details
+##  Smart India Hackathon (SIH) Details
 *   **Problem Statement ID:** 26111
 *   **Problem Statement Title:** Smart AI-Enabled Rapid Feed and Silage Quality Testing System for Dairy Farmers
 *   **Organization:** Ministry of Fisheries, Animal Husbandry & Dairying
@@ -31,7 +31,7 @@
 
 ---
 
-## 🧑‍🌾 Executive Summary (For Non-Technical Evaluation)
+## Executive Summary 
 
 ### The User Journey & Impact
 
@@ -47,7 +47,7 @@ By ensuring the quality of cattle feed, SafeChara helps prevent disease, increas
 
 ---
 
-## 💻 Technical Deep Dive (For Technical Evaluation)
+## 💻 Technical Deep Dive 
 
 ### System Architecture
 The SafeChara ecosystem consists of three primary layers:
@@ -72,50 +72,7 @@ The SafeChara ecosystem consists of three primary layers:
 
 ---
 
-## 🛠 Setup and Installation (Developer Guide)
 
-### Prerequisites
-*   [Node.js](https://nodejs.org/) (v18 or higher)
-*   [Java Development Kit (JDK)](https://adoptium.net/) (Java 21 required for Android builds)
-*   [Expo CLI](https://docs.expo.dev/)
-
-### Environment Configuration
-1.  Clone the repository.
-2.  Copy `.env.example` to `.env`:
-    ```bash
-    cp .env.example .env
-    ```
-3.  Fill in the required environment variables in the `.env` file (Firebase Configuration, Cloudinary Credentials, API URLs).
-
-### Local Development
-1.  Install dependencies:
-    ```bash
-    npm install
-    ```
-2.  Start the Expo development server:
-    ```bash
-    npx expo start
-    ```
-3.  Scan the QR code with the Expo Go app on your physical device (Note: Bluetooth functionality requires a physical device, not an emulator).
-
-### Production Build (Android APK)
-This project is configured to build using Expo Application Services (EAS).
-1.  Install EAS CLI:
-    ```bash
-    npm install -g eas-cli
-    ```
-2.  Login to EAS:
-    ```bash
-    eas login
-    ```
-3.  Trigger the Android production build:
-    ```bash
-    eas build -p android --profile production
-    ```
-
----
-
-## 📁 Repository Structure Overview
 *   `/screens`: Main application screens (Dashboard, Advisory, Setup, Results).
 *   `/components`: Reusable UI components (Glassmorphic cards, buttons, BLE status indicators).
 *   `/services`: API wrappers, BLE communication logic, and Firebase/Cloudinary integration.
