@@ -61,7 +61,7 @@ By ensuring the quality of cattle feed, SafeChara helps prevent disease, increas
 
 ## 💻 Technical Deep Dive 
 
-<img width="1106" height="736" alt="image" src="https://github.com/user-attachments/assets/f87a1e48-efe5-4521-914d-5d3ea299d074" />
+<img width="1000" height="700" alt="image" src="https://github.com/user-attachments/assets/f87a1e48-efe5-4521-914d-5d3ea299d074" />
 
 
 ### System Architecture
