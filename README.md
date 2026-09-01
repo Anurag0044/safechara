@@ -5,7 +5,8 @@
 </div>
 
 <hr />
-<img width="328" height="700" alt="image" src="https://github.com/user-attachments/assets/6f015a51-65b7-4614-84e9-0c65b0d031d7" />
+<img width="319" height="280" alt="image" src="https://github.com/user-attachments/assets/e418705e-a0dc-4814-a59b-971a7e787cce" />
+
 
 
 ## 🏆 Smart India Hackathon (SIH) Details
